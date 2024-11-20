@@ -14,7 +14,7 @@ const navigation = [
     { name: "Check out", path: "/checkout" },
 ];
 const Navbar = () => {
-    const [avater, setAvater] = useState(true);
+    const [avatar, setAvatar] = useState(false);
     const [dropdown, setDropdown] = useState(false);
     return (
         <header className='max-w-screen-2xl mx-auto px-4 py-6 bg-blackBG'>
@@ -27,7 +27,7 @@ const Navbar = () => {
                     </div>
                 </div>
                 <div className='md:space-x-3 space-x-2 relative flex items-center'>
-                    {avater ? <div className='relative'>
+                    {avatar ? <div className='relative'>
                         <button onClick={() => setDropdown(!dropdown)}>
                             <img src={avatarImg} alt="" className='size-7 rounded-full ring-2 ring-blue-500 ' />
                         </button>
