@@ -6,6 +6,7 @@ import { FaRegUser } from "react-icons/fa";
 import { CiHeart } from "react-icons/ci";
 import { IoCartOutline } from "react-icons/io5";
 import avatarImg from "../assets/avatar.png";
+import { useSelector } from 'react-redux'
 
 const navigation = [
     { name: "Dashboard", path: "/dashboard" },
@@ -14,6 +15,7 @@ const navigation = [
     { name: "Check out", path: "/checkout" },
 ];
 const Navbar = () => {
+    const items = useSelector((state) => state.cart.cartItem)
     const [avatar, setAvatar] = useState(false);
     const [dropdown, setDropdown] = useState(false);
     return (
@@ -56,7 +58,10 @@ const Navbar = () => {
                     </button>
                     <Link to={"/cart"} className='sm:px-6 p-1 px-2 flex items-center bg-primary rounded-md '>
                         <IoCartOutline className='' />
-                        <span className='text-sm sm:ml-1 font-semibold'>0</span>
+                        {
+                            items.length > 0 ? <span className='text-sm sm:ml-1 font-semibold'>{items.length}</span> : <span className='text-sm sm:ml-1 font-semibold'>0</span>
+                        }
+
                     </Link>
                 </div>
             </nav>
