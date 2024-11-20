@@ -17,7 +17,7 @@ const cartSlice = createSlice({
                 //inform success after add done
                 toast.success('Add to cart success!', {
                     position: "top-right",
-                    autoClose: 3000,
+                    autoClose: 2000,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
@@ -30,7 +30,7 @@ const cartSlice = createSlice({
                 //false add to cart
                 toast.warn('Products is existing!', {
                     position: "top-right",
-                    autoClose: 3000,
+                    autoClose: 2000,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
@@ -51,4 +51,6 @@ const cartSlice = createSlice({
 })
 
 export const { addToCart } = cartSlice.actions;
+export const { removeItems } = cartSlice.actions;
+export const { clearCart } = cartSlice.actions;
 export default cartSlice.reducer;

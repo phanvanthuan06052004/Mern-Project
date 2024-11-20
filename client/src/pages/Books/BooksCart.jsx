@@ -2,7 +2,7 @@ import React from 'react'
 import { FiShoppingCart } from "react-icons/fi";
 import { getURL } from '../../utils/getURLImg';
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { addToCart } from "../../redux/features/cart/cartSlide"
 const BooksCart = ({ books }) => {
     const dispatch = useDispatch();
