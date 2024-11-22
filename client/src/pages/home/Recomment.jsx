@@ -12,17 +12,13 @@ import { Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import { useGetBooksQuery } from '../../redux/features/cart/booksAPI';
+
+
 const Recomment = () => {
-    const [books, setBooks] = useState([]);
-
-    useEffect(
-        () => {
-            fetch("books.json")
-                .then(res => res.json())
-                .then((data) => setBooks(data))
-        }, []
-    );
-
+    
+    const {data: books =[]} = useGetBooksQuery();
+    const booksList = books?.book || [];
     return (
         <div className='py-16'>
             <h2 className='text-3xl font-semibold mb-6'>Recommended for you </h2>
@@ -54,7 +50,7 @@ const Recomment = () => {
                 >
 
                     {
-                        books.length > 0 && books.slice(8, 18).map((books, index) => ( //slice: get element from 8 to 18
+                        booksList?.slice(8, 18).map((books, index) => ( //slice: get element from 8 to 18
                             <SwiperSlide key={index}>
                                 <BooksCart books={books} />
                             </SwiperSlide>

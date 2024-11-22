@@ -12,22 +12,18 @@ import { Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import { useGetBooksQuery } from '../../redux/features/cart/booksAPI';
 
 const categories = ["choose a genre", "Business", "Fiction", "Horror", "Adventure"]
 const BestSeller = () => {
-    const [books, setBooks] = useState([]);
+    
     const [cateOption, setCateOption] = useState("choose a genre");
 
-    useEffect(
-        () => {
-            fetch("books.json")
-                .then(res => res.json())
-                .then((data) => setBooks(data))
-        }, []
-    );
+    const {data: books =[]} = useGetBooksQuery();
+    
 
-
-    const filter = cateOption === "choose a genre" ? books : books.filter(x => x.category === cateOption.toLowerCase());
+    const booksList = books?.book || [];
+    const filter = cateOption === "choose a genre" ? booksList : booksList.filter(x => x.category === cateOption.toLowerCase());
 
 
     return (
@@ -70,7 +66,7 @@ const BestSeller = () => {
                 >
 
                     {
-                        filter.length > 0 && filter.map((books, index) => (
+                         filter?.map((books, index) => (
                             <SwiperSlide key={index}>
                                 <BooksCart books={books} />
                             </SwiperSlide>
