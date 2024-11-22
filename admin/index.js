@@ -1,8 +1,24 @@
-require('dotenv').config();
-const express = require('express')
+import dotenv from 'dotenv';
+import express from 'express';
+import mongoose from 'mongoose';
+import cors from 'cors';
+import routes from "./src/Books/book.route.js";
+
+
+dotenv.config();
 const app = express()
-const mongoose = require('mongoose');
-const port = process.env.PORT || 3000
+const port = process.env.PORT;
+
+//middleware
+app.use(express.json());
+// config cors cho phep giao tiep o phuong thuc khac nhau
+app.use(cors({
+    origin: ['http://localhost:5173'],
+    Credential: true,
+}))
+
+//config routes
+app.use("/api/books", routes)
 
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => console.log('Connected to MongoDB'))
