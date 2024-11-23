@@ -6,6 +6,7 @@ import Register from "../components/Register";
 import CartPage from "../pages/Books/CartPage"
 import CheckoutPage from "../pages/Books/CheckoutPage";
 import BookDetail from "../pages/Books/BookDetail";
+import CheckPermissionPage from "./checkPermissionPage";
 const router = createBrowserRouter([
     {
         path: "/",
@@ -39,7 +40,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/checkout",
-                element: <CheckoutPage />
+                element: <CheckPermissionPage><CheckoutPage /></CheckPermissionPage>
             },
             {
                 path: "/book/:id",

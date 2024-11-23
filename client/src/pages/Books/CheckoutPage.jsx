@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useForm } from "react-hook-form" //get value from input
+import { useAuth } from '../../Context/authContext';
 const CheckoutPage = () => {
     const [isChecked, setIschecked] = useState(false)
-    const currentUser = false; //get user from authenticated
+    const { currentUser } = useAuth()
     //handle get data 
     const carts = useSelector((state) => state.cart.cartItem)
     const totalPrice = carts.reduce((accumulator, currentValue) => accumulator + currentValue.newPrice, 0).toFixed(2); //initialValue = 0
