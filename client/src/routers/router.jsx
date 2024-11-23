@@ -7,6 +7,7 @@ import CartPage from "../pages/Books/CartPage"
 import CheckoutPage from "../pages/Books/CheckoutPage";
 import BookDetail from "../pages/Books/BookDetail";
 import CheckPermissionPage from "./checkPermissionPage";
+import OrderPage from "../pages/Books/OrderPage";
 const router = createBrowserRouter([
     {
         path: "/",
@@ -20,7 +21,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/orders",
-                element: <div>Order</div>,
+                element: <CheckPermissionPage><OrderPage /></CheckPermissionPage>,
             },
             {
                 path: "/about",

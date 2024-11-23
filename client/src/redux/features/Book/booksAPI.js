@@ -32,7 +32,7 @@ const booksAPI = createApi({
                 method: 'PUT',
                 body: data
             }),
-            invalidatesTags: ['Books']
+            invalidatesTags: ['Books'] //Xóa cache khi có sự thay đổi trong data
         }),
         addBook: builder.mutation({
             query: (data) => ({
