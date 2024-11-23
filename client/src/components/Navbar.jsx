@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom'
 import { RiBarChartHorizontalLine } from "react-icons/ri";
 import { HiOutlineSearch } from "react-icons/hi";
 import { FaRegUser } from "react-icons/fa";
-import { CiHeart } from "react-icons/ci";
+import { CiHeart, CiUser } from "react-icons/ci";
 import { IoCartOutline } from "react-icons/io5";
 import avatarImg from "../assets/avatar.png";
 import { useSelector } from 'react-redux'
+import { useAuth } from '../Context/authContext';
+import { toast } from 'react-toastify';
 
 const navigation = [
     { name: "Dashboard", path: "/dashboard" },
@@ -16,8 +18,19 @@ const navigation = [
 ];
 const Navbar = () => {
     const items = useSelector((state) => state.cart.cartItem)
-    const [avatar, setAvatar] = useState(false);
     const [dropdown, setDropdown] = useState(false);
+    const { currentUser, signout } = useAuth()
+    console.log(currentUser)
+    //handle signout
+    const handleSignout = async () => { 
+        try {
+            await signout()
+            setDropdown(false)
+            toast.success("Đăng xuất thành công!")
+        } catch (error) {
+            toast.error(error.message)
+        }
+    }
     return (
         <header className='max-w-screen-2xl mx-auto px-4 py-6 bg-blackBG'>
             <nav className='flex justify-between item-center'>
@@ -29,9 +42,9 @@ const Navbar = () => {
                     </div>
                 </div>
                 <div className='md:space-x-3 space-x-2 relative flex items-center'>
-                    {avatar ? <div className='relative'>
+                    {currentUser ? <div className='relative'>
                         <button onClick={() => setDropdown(!dropdown)}>
-                            <img src={avatarImg} alt="" className='size-7 rounded-full ring-2 ring-blue-500 ' />
+                            {currentUser.photoURL ? <img src={currentUser.photoURL} alt="" className='size-7 rounded-full ring-2 ring-blue-500 ' /> : <img src={avatarImg} alt="" className='size-7 rounded-full ring-2 ring-blue-500 ' />}
                         </button>
                         {
                             dropdown && (
@@ -46,6 +59,9 @@ const Navbar = () => {
                                                 </li>
                                             ))
                                         }
+                                        <li onClick={() => handleSignout()} className='px-4 py-2 block text-sm hover:bg-gray-100'>
+                                            Logout
+                                        </li>
                                     </ul>
                                 </div>
                             )

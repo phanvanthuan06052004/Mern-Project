@@ -1,16 +1,31 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { FaGoogle } from "react-icons/fa";
 import { useForm } from "react-hook-form"
+import { useAuth } from '../Context/authContext';
+import { toast } from 'react-toastify';
 const Register = () => {
     const [validated, setValidated] = useState("")
+    const navigate = useNavigate()
+    const { signup } = useAuth()
+    console.log(signup)
     const {
         register,
         handleSubmit,
         watch,
         formState: { errors },
     } = useForm();
-    const onSubmit = (data) => console.log(data)
+    const onSubmit = async (data) => {
+        try {
+            await signup(data.email, data.password)
+            toast.success("Đăng ký thành công!") 
+            navigate('/login')  // Chuyển hướng sau khi đăng ký thành công
+        } catch (error) {
+            toast.error(error.message) 
+            // console.log(error.message)
+            setValidated("Vui lòng kiểm tra lại email và mật khẩu!")
+        }
+    }
 
     return (
         <div className='h-[calc(100vh-120px)] flex justify-center items-center'>
@@ -23,7 +38,7 @@ const Register = () => {
                     </div>
                     <div>
                         <label htmlFor="password" className='text-sm pb-2 font-bold block text-gray-700 '>Password</label>
-                        <input {...register("password", { required: true })} className='shadow appearance-none border rounded py-3 px-2 leading-tight focus:outline-none focus:shadow' placeholder='Enter your Email' type="password" name="password" id="password" />
+                        <input {...register("password", { required: true })} className='shadow appearance-none border rounded py-3 px-2 leading-tight focus:outline-none focus:shadow' placeholder='Enter your password' type="password" name="password" id="password" />
                     </div>
                     {
                         validated && <p className='mt-2 text-red-500 mb-2 italic text-xs'>{validated}</p>
