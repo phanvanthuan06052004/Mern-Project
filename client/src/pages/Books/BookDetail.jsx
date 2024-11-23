@@ -1,7 +1,7 @@
 import React from 'react'
 import { getURL } from '../../utils/getURLImg';
 import { useParams } from 'react-router-dom'
-import { useGetBookByIdQuery } from '../../redux/features/cart/booksAPI'
+import { useGetBookByIdQuery } from '../../redux/features/Book/booksAPI'
 import { FiShoppingCart } from 'react-icons/fi'
 import { useDispatch } from 'react-redux'
 import { addToCart } from '../../redux/features/cart/cartSlide'

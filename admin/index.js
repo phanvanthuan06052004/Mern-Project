@@ -2,7 +2,8 @@ import dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import routes from "./src/Books/book.route.js";
+import routesBook from "./src/Books/book.route.js";
+import routesOrder from "./src/Orders/order.route.js";
 
 
 dotenv.config();
@@ -18,9 +19,13 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
 }));
 
-//config routes
-app.use("/api/books", routes)
+//config routes for books
+app.use("/api/books", routesBook)
 
+//config routes for orders
+app.use("/api/order", routesOrder)
+
+//handle connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => console.log('Connected to MongoDB'))
     .catch((error) => console.error('MongoDB connection error:', error));

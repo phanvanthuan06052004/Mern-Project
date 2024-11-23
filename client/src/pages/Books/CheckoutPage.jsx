@@ -1,15 +1,19 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form" //get value from input
 import { useAuth } from '../../Context/authContext';
+import { useCreateOrderMutation } from '../../redux/features/Oder/ordersAPI';
+import { toast } from 'react-toastify';
 const CheckoutPage = () => {
     const [isChecked, setIschecked] = useState(false)
     const { currentUser } = useAuth()
+    const [createOrder] = useCreateOrderMutation();
+    const navigate = useNavigate();
     //handle get data 
     const carts = useSelector((state) => state.cart.cartItem)
     const totalPrice = carts.reduce((accumulator, currentValue) => accumulator + currentValue.newPrice, 0).toFixed(2); //initialValue = 0
-
+    
     //get data from UI checkout
     const {
         register,
@@ -18,12 +22,18 @@ const CheckoutPage = () => {
         formState: { errors },
     } = useForm();
     //handle submit event
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
+        
+        if (!isChecked) {
+            toast.warning("Vui lòng đồng ý với điều khoản và điều kiện!");
+            return;
+        }
+
         const newOrder = {
             name: data.name,
             email: currentUser?.email,
             address: {
-                address: data.address,
+                addressDetail: data.address,
                 ward: data.ward,
                 district: data.district,
                 city: data.city,
@@ -32,7 +42,17 @@ const CheckoutPage = () => {
             product: carts.map(item => item?._id),
             totalPrice: totalPrice,
         }
-        console.log("New Order Object:", newOrder);
+        try {
+            const response = await createOrder(newOrder).unwrap(); //unwrap() giúp lấy dữ liệu từ response va nem ra loi
+            if (response) {
+                toast.success("Đặt hàng thành công!");
+                // dispatch(clearCart()); // Xóa giỏ hàng sau khi đặt hàng
+                navigate('/orders'); 
+            }
+        } catch (error) {
+            toast.error("Có lỗi xảy ra khi đặt hàng!");
+            console.error("Error creating order:", error);
+        }
 
     }
     return (
@@ -141,7 +161,7 @@ const CheckoutPage = () => {
                                         <div className="md:col-span-5 mt-3">
                                             <div className="inline-flex items-center">
                                                 <input
-                                                    type="checkbox" name="billing_same" id="billing_same" className="form-checkbox" />
+                                                    type="checkbox" name="billing_same" id="billing_same" className="form-checkbox" onChange={() => setIschecked(!isChecked)} />
                                                 <label htmlFor="billing_same" className="ml-2 ">I am aggree to the <Link className='underline underline-offset-2 text-blue-600'>Terms & Conditions</Link> and <Link className='underline underline-offset-2 text-blue-600'>Shoping Policy.</Link></label>
                                             </div>
                                         </div>
@@ -152,7 +172,6 @@ const CheckoutPage = () => {
                                             <div className="inline-flex items-end">
                                                 <button
                                                     type='submit'
-                                                    // disabled={!isChecked}
                                                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Place an Order</button>
                                             </div>
                                         </div>
