@@ -63,7 +63,8 @@ export const AuthProvider = ({children}) => {
         signup,
         signin,
         signinWithGoogle,
-        signout
+        signout,
+        loading
     }
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
