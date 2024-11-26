@@ -12,6 +12,7 @@ const checkPermission = async (req, res) => {
         if(user.password !== password) return res.status(401).json({message: "invalid password"});
 
         //handel jwt (playload, secret key, expiresIn)
+        //send token when login success
         const token = jwt.sign({id: user._id, name: user.Username, role: user.role}, process.env.JWT_SECRET, {expiresIn: "1d"});
         res.status(200).json({message: "login success", token: token, user:{
             Username: user.Username,
