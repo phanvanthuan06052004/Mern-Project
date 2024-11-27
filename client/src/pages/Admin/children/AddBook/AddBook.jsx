@@ -1,43 +1,76 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import InputField from './InputField.jsx'
 import SelectField from './SelectField.jsx'
 import { useForm } from 'react-hook-form'
 import { useAddBookMutation } from '../../../../redux/features/Book/booksAPI.js'
 import { toast } from 'react-toastify'
+import axios from 'axios'
 
 const AddBook = () => {
   const {register, handleSubmit, formState: {error}, reset } =useForm()
-  const [img, setImg] = useState(null)
-  const [imgName, setImgName] = useState('')
+  const [selectedFile, setSelectedFile] = useState(null)
+  const [previewUrl, setPreviewUrl] = useState('') // Để preview ảnh
   const [addBook, {isLoading, isError}] = useAddBookMutation()
 
   const onSubmit = async(data) => {
-    console.log(data)
-    console.log(imgName)
-    const newBook = {
-      ...data,
-      coverImage: imgName
-    }
     try {
-      console.log(newBook)
+      if (!selectedFile) {
+        toast.error('Vui lòng chọn ảnh bìa sách!')
+        return
+      }
+
+      // Upload ảnh khi submit form
+      const formData = new FormData()
+      formData.append('image', selectedFile)
+
+      const uploadResponse = await axios.post('http://localhost:3000/api/upload/', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+
+      // Tạo sách mới với tên file ảnh đã upload
+      const newBook = {
+        ...data,
+        coverImage: uploadResponse.data.filename
+      }
+
       await addBook(newBook).unwrap()
-      toast.success("Add book Success!");
+      toast.success("Thêm sách thành công!")
+      
+      // Reset form
       reset()
-      setImg(null)
-      setImgName('')
+      setSelectedFile(null)
+      setPreviewUrl('')
+      
+      // Xóa preview URL để tránh memory leak
+      URL.revokeObjectURL(previewUrl)
+
     } catch (error) {
-      console.log(error)
+      console.error('Error:', error)
+      toast.error(error.message || 'Có lỗi xảy ra khi thêm sách!')
     }
   }
 
   const handleFileChange = (e) => {
-    console.log(e.target.files[0].name)
-    const imgFile = e.target.files[0];
-    if(imgFile) {
-      setImg(imgFile)
-      setImgName(imgFile.name)
+    const file = e.target.files[0]
+    if (file) {
+      // Chỉ lưu file tạm thời và tạo preview
+      setSelectedFile(file)
+      // Tạo preview URL
+      const preview = URL.createObjectURL(file)
+      setPreviewUrl(preview)
     }
   }
+
+   // Cleanup preview URL khi component unmount
+   useEffect(() => {
+    return () => {
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl)
+      }
+    }
+  }, [])
 
   return (
     <>
@@ -75,7 +108,8 @@ const AddBook = () => {
             { value: 'fiction', label: 'Fiction' },
             { value: 'horror', label: 'Horror' },
             { value: 'adventure', label: 'Adventure' },
-            // Add more options as needed
+            { value: 'marketing', label: 'Marketing' },
+            
           ]}
           register={register}
         />
@@ -116,7 +150,17 @@ const AddBook = () => {
         <div className="mb-4">
           <label className="block text-sm font-semibold text-gray-700 mb-2">Cover Image</label>
           <input type="file" accept="image/*" onChange={handleFileChange} className="mb-2 w-full" />
-          {imgName && <p className="text-sm text-gray-500">Selected: {imgName}</p>}
+        
+
+        {previewUrl && (
+            <div className="mt-2">
+              <img 
+                src={previewUrl} 
+                alt="Preview" 
+                className="max-w-[200px] rounded-md"
+              />
+            </div>
+          )}
         </div>
 
         {/* Submit Button */}
