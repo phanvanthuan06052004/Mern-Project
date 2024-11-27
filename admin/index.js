@@ -6,6 +6,7 @@ import routesBook from "./src/Books/book.route.js";
 import routesOrder from "./src/Orders/order.route.js";
 import routesUser from "./src/Users/user.route.js";
 import routesDashboard from './src/stats/stats.route.js';
+import upload from './src/UploadImg/Upload.js';
 
 dotenv.config();
 const app = express()
@@ -31,6 +32,12 @@ app.use("/api/users", routesUser)
 
 //config api for stats dashboard
 app.use("/api/dashboard", routesDashboard)
+
+//config routes for upload image
+app.use("/api/upload", upload)
+
+// Middleware để serve static files
+app.use('/images', express.static('public/images'));
 
 //handle connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI)

@@ -1,4 +1,5 @@
+const API_URL = import.meta.env.VITE_API_URL
 function getURL(name) {
-    return new URL(`../assets/books/${name}`, import.meta.url)
+    return `${API_URL}/images/books/${name}`
 }
 export { getURL }
