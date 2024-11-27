@@ -6,7 +6,7 @@ const routesBook = express.Router();
 //map
 // FE -> BE server -> controller -> book schema -> database -> send to server -> back to FE
 //handle create Book , have to verify token
-routesBook.post("/create", verifyToken,createBook)
+routesBook.post("/create", verifyToken, createBook)
 
 //handle get all books
 routesBook.get("/show", getAllBooks)

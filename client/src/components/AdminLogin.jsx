@@ -57,6 +57,7 @@ const AdminLogin = () => {
                     validated && <p className='mt-2 text-red-500 mb-2 italic text-xs'>{validated}</p>
                 }
                 <button className='w-full bg-blue-500 hover:bg-blue-700 text-white font-bold mt-4 px-4 py-2 rounded focus:outline-none'>Login</button>
+                <div className='w-full pt-4 text-center text-gray-700 font-normal hover:text-blue-500 '><Link to="/"> Back Home</Link></div>
             </form>
             
         </div>

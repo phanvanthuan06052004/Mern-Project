@@ -2,6 +2,7 @@ import React from 'react'
 import { HiViewGridAdd } from 'react-icons/hi'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
 import { MdOutlineManageHistory } from "react-icons/md";
+import { ToastContainer } from 'react-toastify';
 
 const DashboardLayout = () => {
     const navigate = useNavigate();
@@ -122,6 +123,7 @@ const DashboardLayout = () => {
                 </main>
             </div>
         </section>
+        <ToastContainer />
     </>
   )
 }

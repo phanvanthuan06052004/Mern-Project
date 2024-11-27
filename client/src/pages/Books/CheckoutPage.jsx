@@ -13,7 +13,7 @@ const CheckoutPage = () => {
     //handle get data 
     const carts = useSelector((state) => state.cart.cartItem)
     const totalPrice = carts.reduce((accumulator, currentValue) => accumulator + currentValue.newPrice, 0).toFixed(2); //initialValue = 0
-    
+    const totalQuantity = carts.reduce((accumulator) => accumulator + 1, 0);
     //get data from UI checkout
     const {
         register,
@@ -63,7 +63,7 @@ const CheckoutPage = () => {
                         <div>
                             <h2 className="font-semibold text-xl text-gray-600 mb-2">Cash On Delevary</h2>
                             <p className="text-gray-500 mb-2">Total Price: ${totalPrice}</p>
-                            <p className="text-gray-500 mb-6">Items:0</p>
+                            <p className="text-gray-500 mb-6">Items: ${totalQuantity}</p>
                         </div>
 
                         <div className="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
@@ -168,7 +168,7 @@ const CheckoutPage = () => {
 
 
 
-                                        <div className="md:col-span-5 text-right">
+                                        <div className="md:col-span-6 text-right">
                                             <div className="inline-flex items-end">
                                                 <button
                                                     type='submit'
