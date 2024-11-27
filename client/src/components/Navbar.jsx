@@ -11,7 +11,7 @@ import { useAuth } from '../Context/authContext';
 import { toast } from 'react-toastify';
 
 const navigation = [
-    { name: "Dashboard", path: "/dashboard" },
+    { name: "Dashboard", path: "/admin" },
     { name: "Order", path: "/Orders" },
     { name: "Cart", path: "/dashboard" },
     { name: "Check out", path: "/checkout" },

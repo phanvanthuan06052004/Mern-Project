@@ -5,6 +5,7 @@ import cors from 'cors';
 import routesBook from "./src/Books/book.route.js";
 import routesOrder from "./src/Orders/order.route.js";
 import routesUser from "./src/Users/user.route.js";
+import routesDashboard from './src/stats/stats.route.js';
 
 dotenv.config();
 const app = express()
@@ -27,6 +28,9 @@ app.use("/api/order", routesOrder)
 
 //config routes for users
 app.use("/api/users", routesUser)
+
+//config api for stats dashboard
+app.use("/api/dashboard", routesDashboard)
 
 //handle connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI)
