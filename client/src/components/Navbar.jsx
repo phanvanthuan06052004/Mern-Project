@@ -13,7 +13,7 @@ import { toast } from 'react-toastify';
 const navigation = [
     { name: "Dashboard", path: "/admin" },
     { name: "Order", path: "/Orders" },
-    { name: "Cart", path: "/dashboard" },
+    { name: "Cart", path: "/cart" },
     { name: "Check out", path: "/checkout" },
 ];
 const Navbar = () => {

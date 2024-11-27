@@ -12,7 +12,7 @@ import AdminLogin from "../components/AdminLogin";
 import AdminRouterCheck from "./AdminRouterCheck";
 import DashboardLayout from "../pages/Admin/DashboardLayout";
 import Dashboard from "../pages/Admin/children/Dashboard";
-import AddBook from "../pages/Admin/children/AddBook";
+import AddBook from "../pages/Admin/children/AddBook/AddBook";
 import Management from "../pages/Admin/children/Management";
 import EditBook from "../pages/Admin/children/EditBook";
 const router = createBrowserRouter([
@@ -66,19 +66,19 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "",
-                element: <adminRouter><Dashboard/></adminRouter>
+                element: <AdminRouterCheck><Dashboard/></AdminRouterCheck>
             },
             {
                 path: "/admin/add-book",
-                element: <adminRouter><AddBook/></adminRouter  >
+                element: <AdminRouterCheck><AddBook/></AdminRouterCheck  >
             },
             {
                 path: "/admin/edit-book/:id",
-                element: <adminRouter><EditBook/></adminRouter >
+                element: <AdminRouterCheck><EditBook/></AdminRouterCheck >
             },
             {
                 path: "/admin/manage-books",
-                element: <adminRouter><Management/></adminRouter >
+                element: <AdminRouterCheck><Management/></AdminRouterCheck >
             }
 
         ]
