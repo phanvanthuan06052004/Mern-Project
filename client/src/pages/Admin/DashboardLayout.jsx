@@ -80,14 +80,7 @@ const DashboardLayout = () => {
                             </svg> 
                         </button>
                         <div className="border-l pl-3 ml-3 space-x-1">
-                            <button className="relative p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-600 focus:bg-gray-100 focus:text-gray-600 rounded-full">
-                                <span className="sr-only">Notifications</span>
-                                <span className="absolute top-0 right-0 h-2 w-2 mt-1 mr-2 bg-red-500 rounded-full"></span>
-                                <span className="absolute top-0 right-0 h-2 w-2 mt-1 mr-2 bg-red-500 rounded-full animate-ping"></span>
-                                <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                                </svg>
-                            </button>
+                            
                             <button
                             onClick={handleLogout}
                             className="relative p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-600 focus:bg-gray-100 focus:text-gray-600 rounded-full">
@@ -105,14 +98,28 @@ const DashboardLayout = () => {
                             <h1 className="text-4xl font-semibold mb-2">Dashboard</h1>
                         </div>
                         <div className="flex flex-col md:flex-row items-start justify-end -mb-3">
-                            <Link to="/admin/manage-books" className="inline-flex px-5 py-3 text-purple-600 hover:text-purple-700 focus:text-purple-700 hover:bg-purple-100 focus:bg-purple-100 border border-purple-600 rounded-md mb-3">
+                            <Link 
+                                to="/admin/manage-books" 
+                                className={`inline-flex px-5 py-3 rounded-md mb-3 ${
+                                    location.pathname === '/admin/manage-books' 
+                                    ? 'text-white bg-purple-600 hover:bg-purple-700 focus:bg-purple-700'
+                                    : 'text-purple-600 hover:text-purple-700 focus:text-purple-700 hover:bg-purple-100 focus:bg-purple-100 border border-purple-600'
+                                }`}
+                            >
                                 <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 h-5 w-5 -ml-1 mt-0.5 mr-2">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                                 </svg>
                                 Manage Books
                             </Link>
-                            <Link to="/admin/add-book" className="inline-flex px-5 py-3 text-white bg-purple-600 hover:bg-purple-700 focus:bg-purple-700 rounded-md ml-6 mb-3">
-                                <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 h-6 w-6 text-white -ml-1 mr-2">
+                            <Link 
+                                to="/admin/add-book" 
+                                className={`inline-flex px-5 py-3 rounded-md ml-6 mb-3 ${
+                                    location.pathname === '/admin/add-book'
+                                    ? 'text-white bg-purple-600 hover:bg-purple-700 focus:bg-purple-700'
+                                    : 'text-purple-600 hover:text-purple-700 focus:text-purple-700 hover:bg-purple-100 focus:bg-purple-100 border border-purple-600'
+                                }`}
+                            >
+                                <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 h-6 w-6 -ml-1 mr-2">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                                 </svg>
                                 Add New Book
