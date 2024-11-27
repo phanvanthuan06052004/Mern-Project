@@ -10,6 +10,11 @@ import CheckPermissionPage from "./checkPermissionPage";
 import OrderPage from "../pages/Books/OrderPage";
 import AdminLogin from "../components/AdminLogin";
 import AdminRouterCheck from "./AdminRouterCheck";
+import DashboardLayout from "../pages/Admin/DashboardLayout";
+import Dashboard from "../pages/Admin/children/Dashboard";
+import AddBook from "../pages/Admin/children/AddBook";
+import Management from "../pages/Admin/children/Management";
+import EditBook from "../pages/Admin/children/EditBook";
 const router = createBrowserRouter([
     {
         path: "/",
@@ -57,23 +62,23 @@ const router = createBrowserRouter([
     },
     {
         path: "/admin",
-        element: <AdminRouterCheck><div>Admin</div></AdminRouterCheck>,
+        element: <AdminRouterCheck><DashboardLayout /></AdminRouterCheck>,
         children: [
             {
-                path: "/admin/home",
-                element: <adminRouter><div>Dashboard</div></adminRouter>
+                path: "",
+                element: <adminRouter><Dashboard/></adminRouter>
             },
             {
                 path: "/admin/add-book",
-                element: <adminRouter><div>Add Book</div></adminRouter  >
+                element: <adminRouter><AddBook/></adminRouter  >
             },
             {
                 path: "/admin/edit-book/:id",
-                element: <adminRouter><div>Edit Book</div></adminRouter >
+                element: <adminRouter><EditBook/></adminRouter >
             },
             {
                 path: "/admin/manage-books",
-                element: <adminRouter><div>Manage Books</div></adminRouter >
+                element: <adminRouter><Management/></adminRouter >
             }
 
         ]

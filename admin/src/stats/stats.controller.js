@@ -3,32 +3,32 @@ import Book from '../Books/book.model.js';
 
 const getAdminStats = async (req, res) => {
     try {
-        // 1. Total number of orders
+        //get total number of orders
         const totalOrders = await Order.countDocuments();
 
-        // 2. Total sales (sum of all totalPrice from orders)
+        //get total sales
         const totalSales = await Order.aggregate([
             {
-                $group: {
-                    _id: null,
-                    totalSales: { $sum: "$totalPrice" },
+                $group: { 
+                    _id: null, //1. nhóm tất cả các document 
+                    totalSales: { $sum: "$totalPrice" },    //2. tính tổng totalPrice của tất cả các documents
                 }
             }
         ]);
 
-        // 4. Trending books statistics: 
+        //get trending books
         const trendingBooksCount = await Book.aggregate([
             { $match: { trending: true } },  // Match only trending books
             { $count: "trendingBooksCount" }  // Return the count of trending books
         ]);
         
-        // If you want just the count as a number, you can extract it like this:
+        // count trending books, check if trendingBooksCount is not empty, if empty, set trendingBooksCount to 0
         const trendingBooks = trendingBooksCount.length > 0 ? trendingBooksCount[0].trendingBooksCount : 0;
 
-        // 5. Total number of books
+        // total number of books
         const totalBooks = await Book.countDocuments();
 
-        // 6. Monthly sales (group by month and sum total sales for each month)
+        // stats monthly sales
         const monthlySales = await Order.aggregate([
             {
                 $group: {

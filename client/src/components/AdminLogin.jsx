@@ -15,7 +15,6 @@ const AdminLogin = () => {
         formState: { errors },
     } = useForm();
     const onSubmit = async (data) => {
-        console.log(data)
         try {
             const res = await axios.post(`${getURL()}/api/users/verify`, data, {
                 headers: {
@@ -24,12 +23,13 @@ const AdminLogin = () => {
             })
             if(res.data.token){
                 localStorage.setItem("token", res.data.token)
+                toast.success("Login success")
+                
                 setTimeout(() => {
                     localStorage.removeItem("token")
                     toast.warning("Token expired, please login again")
                     navigate("/admin/login")
                 }, 1000 * 60 * 60 * 24)
-                toast.success("Login success")
                 navigate("/admin")
             }
 

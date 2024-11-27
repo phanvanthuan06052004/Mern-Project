@@ -1,11 +1,11 @@
-import mongoose from 'mongoose';
 import express from 'express';
 import { getAdminStats } from './stats.controller.js';
+import verifyToken from '../Middleware/VerifyToken.js';
 
-const router = express.Router();
+const routesDashboard = express.Router();
 
 
 // Function to calculate admin stats
-router.get("/", getAdminStats)
+routesDashboard.get("/", verifyToken ,getAdminStats)
 
-export default router;
+export default routesDashboard;
