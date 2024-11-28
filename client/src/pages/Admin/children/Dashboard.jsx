@@ -33,12 +33,12 @@ const Dashboard = () => {
     justifyContent: 'center',
     alignItems: 'center',
     minHeight: '80vh' 
-}
+  }
   if(loading) return (
     <div style={containerStyle}>
         <CircleLoader color="#80C4E9" size={100} aria-label="Loading Spinner" data-testid="loader" />
     </div>
-)
+  )
 
   return (
     <>

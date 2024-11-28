@@ -1,5 +1,6 @@
+const API_URL = import.meta.env.VITE_API_URL
 const getURL = () => {
-    return "http://localhost:3000"
+    return `${API_URL}`
 }
 
 export default getURL

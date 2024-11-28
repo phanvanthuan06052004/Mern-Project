@@ -98,7 +98,7 @@ const Management = () => {
                                     </td>
                                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 space-x-4">
                                         <Link 
-                                            to={`/dashboard/edit-book/${book._id}`}
+                                            to={`/admin/edit-book/${book._id}`}
                                             className="font-medium text-indigo-600 hover:text-indigo-700 mr-2 hover:underline underline-offset-2"
                                         >
                                             Edit

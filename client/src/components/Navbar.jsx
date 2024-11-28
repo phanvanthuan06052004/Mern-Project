@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { RiBarChartHorizontalLine } from "react-icons/ri";
 import { HiOutlineSearch } from "react-icons/hi";
 import { FaRegUser } from "react-icons/fa";
@@ -17,6 +17,7 @@ const navigation = [
     { name: "Check out", path: "/checkout" },
 ];
 const Navbar = () => {
+    const location = useLocation();
     const items = useSelector((state) => state.cart.cartItem)
     const [dropdown, setDropdown] = useState(false);
     const { currentUser, signout } = useAuth()
@@ -40,6 +41,20 @@ const Navbar = () => {
                         <HiOutlineSearch className='absolute inline-block left-3 inset-y-2' />
                         <input type="text" placeholder='search...' className='bg-[#EAEAEA] rounded-md w-full py-1 md:px-8 px-6 focus:outline-none' />
                     </div>
+                </div>
+                <div className='flex items-center gap-8'>
+                    <Link 
+                        to={"/"} 
+                        className={`font-roboto transition-colors duration-300 ${location.pathname === "/" ? "text-primary" : "text-black hover:text-primary"}`}
+                    >
+                        Home
+                    </Link>
+                    <Link 
+                        to={"/book"} 
+                        className={`font-roboto transition-colors duration-300 ${location.pathname === "/book" ? "text-primary" : "text-black hover:text-primary"}`}
+                    >
+                        Sản Phẩm
+                    </Link>
                 </div>
                 <div className='md:space-x-3 space-x-2 relative flex items-center'>
                     {currentUser ? <div className='relative'>

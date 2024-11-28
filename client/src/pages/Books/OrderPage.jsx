@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useGetOrderByEmailQuery } from '../../redux/features/Oder/ordersAPI';
 import { useAuth } from '../../Context/authContext';
 import CircleLoader from "react-spinners/ClipLoader";
@@ -16,9 +16,11 @@ const OrderPage = () => {
     }
     // console.log(currentUser)
     //handle get order by email
-    const {data: orders = [], isLoading, isError} = useGetOrderByEmailQuery(currentUser?.email);
+    const {data: orders = [], isLoading, isError, refetch} = useGetOrderByEmailQuery(currentUser?.email);
     console.log(orders)
-
+    useEffect(() => {
+        refetch()
+    }, [refetch])
     if(loading) return (
         <div style={containerStyle}>
             <CircleLoader color="#80C4E9" size={100} aria-label="Loading Spinner" data-testid="loader" />
