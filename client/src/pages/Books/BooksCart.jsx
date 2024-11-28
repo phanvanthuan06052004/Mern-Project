@@ -16,7 +16,7 @@ const BooksCart = ({ books }) => {
                     className="flex flex-col sm:flex-row sm:items-center sm:h-72  sm:justify-center gap-4"
                 >
                     <div className="sm:h-72 sm:flex-shrink-0 border rounded-md">
-                        <Link to={`book/${books._id}`}>
+                        <Link to={`/book/${books._id}`}>
                             <img
                                 src={`${getURL(books?.coverImage)}`}
                                 alt=""
@@ -26,10 +26,11 @@ const BooksCart = ({ books }) => {
                     </div>
 
                     <div>
-                        <Link to={`book/${books?._id}`} ><h3 className="text-xl font-semibold hover:text-blue-600 mb-3">
-                            {books?.title}
+                        <Link to={`/book/${books?._id}`} ><h3 className="text-xl font-semibold hover:text-blue-600 mb-3">
+                        {books?.title.length > 18 ? `${books?.title.slice(0, 18)}...` : books?.title}
+                            
                         </h3></Link>
-                        <p className="text-gray-600 mb-5">{books?.description.length > 80 ? `${books?.description.slice(0, 80)}...` : books?.description} </p>
+                        <p className="text-gray-600 mb-5">{books?.description.length > 50 ? `${books?.description.slice(0, 50)}...` : books?.description} </p>
                         <p className="font-medium mb-5">
                             ${books?.newPrice} <span className="line-through font-normal ml-2">${books?.oldPrice}</span>
                         </p>

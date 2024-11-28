@@ -15,6 +15,7 @@ import Dashboard from "../pages/Admin/children/Dashboard";
 import AddBook from "../pages/Admin/children/AddBook/AddBook";
 import Management from "../pages/Admin/children/Management";
 import EditBook from "../pages/Admin/children/EditBook";
+import BookAll from "../pages/Books/BookAll";
 const router = createBrowserRouter([
     {
         path: "/",
@@ -28,7 +29,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/orders",
-                element: <CheckPermissionPage><OrderPage /></CheckPermissionPage>,
+                element: <OrderPage />
             },
             {
                 path: "/about",
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
             {
                 path: "/book/:id",
                 element: <BookDetail />
+            },
+            {
+                path: "/book",
+                element: <BookAll />
             }
         ]
     },

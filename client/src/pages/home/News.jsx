@@ -1,8 +1,4 @@
 import React from 'react'
-import news1 from "../../assets/news/news-1.png"
-import news2 from "../../assets/news/news-2.png"
-import news3 from "../../assets/news/news-3.png"
-import news4 from "../../assets/news/news-4.png"
 import { Link } from 'react-router-dom'
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -15,40 +11,24 @@ import { Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import { useGetBooksQuery } from '../../redux/features/Book/booksAPI';
+import { getURL } from '../../utils/getURLImg';
 
-const news = [
-    {
-        "id": 1,
-        "title": "Global Climate Summit Calls for Urgent Action",
-        "description": "World leaders gather at the Global Climate Summit to discuss urgent strategies to combat climate change, focusing on reducing carbon emissions and fostering renewable energy solutions.",
-        "image": news1
-    },
-    {
-        "id": 2,
-        "title": "Breakthrough in AI Technology Announced",
-        "description": "A major breakthrough in artificial intelligence has been announced by researchers, with new advancements promising to revolutionize industries from healthcare to finance.",
-        "image": news2
-    },
-    {
-        "id": 3,
-        "title": "New Space Mission Aims to Explore Distant Galaxies",
-        "description": "NASA has unveiled plans for a new space mission that will aim to explore distant galaxies, with hopes of uncovering insights into the origins of the universe.",
-        "image": news3
-    },
-    {
-        "id": 4,
-        "title": "Stock Markets Reach Record Highs Amid Economic Recovery",
-        "description": "Global stock markets have reached record highs as signs of economic recovery continue to emerge following the challenges posed by the global pandemic.",
-        "image": news4
-    },
-    {
-        "id": 5,
-        "title": "Innovative New Smartphone Released by Leading Tech Company",
-        "description": "A leading tech company has released its latest smartphone model, featuring cutting-edge technology, improved battery life, and a sleek new design.",
-        "image": news2
-    }
-]
+
 const News = () => {
+
+    const {data: books =[]} = useGetBooksQuery();
+    
+    const booksList = books?.book || [];
+    
+    //Sắp xếp sách theo ngày thêm mới nhất
+    const sortedBooks = [...booksList].sort((a, b) => {
+        return new Date(b.createdAt) - new Date(a.createdAt);
+    });
+
+    //Lấy 5 cuốn sách mới nhất
+    const latestBooks = sortedBooks.slice(0, 5);
+
     return (
         <div className='py-10'>
             <h2 className='text-3xl font-semibold mb-6'>New</h2>
@@ -76,7 +56,7 @@ const News = () => {
                 >
 
                     {
-                        news.length > 0 && news.map((books, index) => (
+                        latestBooks.length > 0 && latestBooks.map((books, index) => (
                             <SwiperSlide key={index}>
                                 <div className='flex flex-col sm:flex-row sm:justify-between items-center'>
                                     <div>
@@ -85,7 +65,7 @@ const News = () => {
                                         <p>{books.description}</p>
                                     </div>
                                     <div className='flex-shrink-0'>
-                                        <img src={books.image} alt="" className='w-full object-cover ' />
+                                        <img src={`${getURL(books?.coverImage)}`} alt="" className='w-full object-cover ' />
                                     </div>
                                 </div>
                             </SwiperSlide>
