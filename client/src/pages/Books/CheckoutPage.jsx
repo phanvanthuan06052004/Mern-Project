@@ -12,8 +12,13 @@ const CheckoutPage = () => {
     const navigate = useNavigate();
     //handle get data 
     const carts = useSelector((state) => state.cart.cartItem)
-    const totalPrice = carts.reduce((accumulator, currentValue) => accumulator + currentValue.newPrice, 0).toFixed(2); //initialValue = 0
-    const totalQuantity = carts.reduce((accumulator) => accumulator + 1, 0);
+
+    //tính tổng giá trị và tổng số lượng
+    const totalPrice = carts.reduce((accumulator, currentValue) => 
+        accumulator + (currentValue.newPrice * currentValue.quantity), 0).toFixed(2);
+    const totalQuantity = carts.reduce((accumulator, currentValue) => 
+        accumulator + currentValue.quantity, 0);
+
     //get data from UI checkout
     const {
         register,

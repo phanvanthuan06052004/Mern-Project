@@ -12,40 +12,45 @@ const cartSlice = createSlice({
     reducers: {
         addToCart: (state, action) => {
             const checkItemsExiting = state.cartItem.find(item => item._id === action.payload._id);
-            if (!checkItemsExiting) {
-                state.cartItem.push(action.payload); //if no existing items then add to cart
-                //inform success after add done
-                toast.success('Add to cart success!', {
-                    position: "top-right",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                    transition: Bounce,
-                });
+            if (checkItemsExiting) {
+                checkItemsExiting.quantity += 1; // tăng số lượng sản phẩm nếu đã tồn tại
             } else {
-                //false add to cart
-                toast.warn('Products is existing!', {
-                    position: "top-right",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                    transition: Bounce,
-                });
+                const newItem = { ...action.payload, quantity: 1 }; // thêm sản phẩm mới vào giỏ hàng
+                state.cartItem.push(newItem);
             }
+            toast.success('Product added to cart!', {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
         },
         removeItems: (state, action) => {
             state.cartItem = state.cartItem.filter(item => item._id !== action.payload._id) //remove one item from cart
         },
         clearCart: (state) => {
             state.cartItem = []
+        },
+        increaseQuantity: (state, action) => {
+            const itemIndex = state.cartItem.findIndex(
+                item => item._id === action.payload._id
+            );
+            if (itemIndex >= 0) {
+                state.cartItem[itemIndex].quantity += 1;
+            }
+        },
+        decreaseQuantity: (state, action) => {
+            const itemIndex = state.cartItem.findIndex(
+                item => item._id === action.payload._id
+            );
+            if (itemIndex >= 0 && state.cartItem[itemIndex].quantity > 1) {
+                state.cartItem[itemIndex].quantity -= 1;
+            }
         }
     }
 })
@@ -53,4 +58,6 @@ const cartSlice = createSlice({
 export const { addToCart } = cartSlice.actions;
 export const { removeItems } = cartSlice.actions;
 export const { clearCart } = cartSlice.actions;
+export const { increaseQuantity } = cartSlice.actions;
+export const { decreaseQuantity } = cartSlice.actions;
 export default cartSlice.reducer;

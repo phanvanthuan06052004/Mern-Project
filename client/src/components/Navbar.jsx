@@ -21,7 +21,7 @@ const Navbar = () => {
     const items = useSelector((state) => state.cart.cartItem)
     const [dropdown, setDropdown] = useState(false);
     const { currentUser, signout } = useAuth()
-    console.log(currentUser)
+    console.log(currentUser?.photoURL)
     //handle signout
     const handleSignout = async () => { 
         try {
@@ -33,7 +33,7 @@ const Navbar = () => {
         }
     }
     return (
-        <header className='max-w-screen-2xl mx-auto px-4 py-6 bg-blackBG'>
+        <header className='max-w-screen-2xl mx-auto px-4 py-6 bg-blackBG' >
             <nav className='flex justify-between item-center'>
                 <div className='flex items-center md:gap-16 gap-4'>
                     <Link to={"/"}> <RiBarChartHorizontalLine className='size-6' /> </Link>
@@ -59,7 +59,23 @@ const Navbar = () => {
                 <div className='md:space-x-3 space-x-2 relative flex items-center'>
                     {currentUser ? <div className='relative'>
                         <button onClick={() => setDropdown(!dropdown)}>
-                            {currentUser.photoURL ? <img src={currentUser.photoURL} alt="" className='size-7 rounded-full ring-2 ring-blue-500 ' /> : <img src={avatarImg} alt="" className='size-7 rounded-full ring-2 ring-blue-500 ' />}
+                            {currentUser?.photoURL ? (
+                                <img 
+                                    src={currentUser?.photoURL} 
+                                    alt="user avatar" 
+                                    className='w-7 h-7 rounded-full ring-2 ring-blue-500'
+                                    onError={(e) => {
+                                        e.target.onerror = null;
+                                        e.target.src = avatarImg;
+                                    }}
+                                /> 
+                            ) : (
+                                <img 
+                                    src={avatarImg} 
+                                    alt="default avatar" 
+                                    className='w-7 h-7 rounded-full ring-2 ring-blue-500'
+                                />
+                            )}
                         </button>
                         {
                             dropdown && (
@@ -84,9 +100,6 @@ const Navbar = () => {
                     </div> : <Link to="/login">
                         <FaRegUser className='size-6' />
                     </Link>}
-                    <button className='hidden sm:block'>
-                        <CiHeart className='size-6' />
-                    </button>
                     <Link to={"/cart"} className='sm:px-6 p-1 px-2 flex items-center bg-primary rounded-md '>
                         <IoCartOutline className='' />
                         {
