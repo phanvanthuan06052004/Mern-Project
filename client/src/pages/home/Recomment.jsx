@@ -19,9 +19,11 @@ const Recomment = () => {
     
     const {data: books =[]} = useGetBooksQuery();
     const booksList = books?.book || [];
+    const trendingBooks = booksList.filter(book => book.trending === true);
+    console.log(trendingBooks);
     return (
-        <div className='py-16'>
-            <h2 className='text-3xl font-semibold mb-6'>Recommended for you </h2>
+        <div className='py-16 ml-10'>
+            <h2 className='text-3xl font-semibold mb-6'>Đề xuất cho bạn</h2>
             <div >
                 <Swiper
                     slidesPerView={1}
@@ -50,7 +52,7 @@ const Recomment = () => {
                 >
 
                     {
-                        booksList?.slice(8, 18).map((books, index) => ( //slice: get element from 8 to 18
+                        trendingBooks?.map((books, index) => (
                             <SwiperSlide key={index}>
                                 <BooksCart books={books} />
                             </SwiperSlide>

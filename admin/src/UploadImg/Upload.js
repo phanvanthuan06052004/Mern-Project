@@ -1,6 +1,7 @@
 import express from 'express';
 import multer from 'multer';
 import path from 'path';
+import fs from 'fs/promises';
 const router = express.Router();
 
 // Cấu hình multer
@@ -42,6 +43,26 @@ router.post('/', upload.single('image'), (req, res) => {
     });
   } catch (error) {
     res.status(500).json({ message: 'Upload thất bại', error: error.message });
+  }
+});
+
+// API check file đã tồn tại
+router.post('/check', async (req, res) => {
+  try {
+    const { filename } = req.body; // Lấy tên file từ form
+    
+    // Kiểm tra file có tồn tại trong thư mục không
+    const filePath = path.join('public/images/books', filename);
+    const fileExists = await fs.access(filePath)
+      .then(() => true)
+      .catch(() => false);
+    
+    return res.json({
+      exists: fileExists,
+      filename: fileExists ? filename : null
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 });
 

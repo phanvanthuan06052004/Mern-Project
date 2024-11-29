@@ -27,8 +27,8 @@ const BestSeller = () => {
 
 
     return (
-        <div className='py-10'>
-            <h2 className='text-3xl font-semibold mb-6'>Best Seller</h2>
+        <div className='py-10 ml-10'>
+            <h2 className='text-3xl font-semibold mb-6'>Top Bán Chạy</h2>
             <div className='flex items-center mb-8'>
                 <select
                     onChange={(e) => setCateOption(e.target.value)}

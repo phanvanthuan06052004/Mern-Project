@@ -36,7 +36,7 @@ const BooksCart = ({ books }) => {
                         </p>
                         <button onClick={() => handleAddBookToCart(books)} className="btn-primary px-6 space-x-1 flex items-center gap-1 ">
                             <FiShoppingCart className="" />
-                            <span>Add to Cart</span>
+                            <span className='text-sm'>Add to Cart</span>
                         </button>
                     </div>
                 </div>

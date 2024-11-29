@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getURL } from '../../utils/getURLImg';
-import { removeItems, clearCart } from "../../redux/features/cart/cartSlide"
+import { removeItems, clearCart, increaseQuantity, decreaseQuantity } from "../../redux/features/cart/cartSlide"
 import { useDispatch } from 'react-redux'
 const CartPage = () => {
     //handle get data 
@@ -20,7 +20,20 @@ const CartPage = () => {
         dispatch(clearCart())
     }
 
-    const totalPrice = carts.reduce((accumulator, currentValue) => accumulator + currentValue.newPrice, 0).toFixed(2); //initialValue = 0
+    //handle quantity
+    const handleIncreaseQuantity = (book) => {
+        dispatch(increaseQuantity(book))
+    }
+
+    const handleDecreaseQuantity = (book) => {
+        dispatch(decreaseQuantity(book))
+    }
+
+    // Sửa cách tính totalPrice để nhân với quantity
+    const totalPrice = carts.reduce((accumulator, currentValue) => 
+        accumulator + (currentValue.newPrice * currentValue.quantity), 0
+    ).toFixed(2);
+
     return (
         <>
             {
@@ -65,10 +78,32 @@ const CartPage = () => {
                                                             <p className="mt-1 text-sm text-gray-500 capitalize"><strong>Category:</strong> {book?.category}</p>
                                                         </div>
                                                         <div className="flex flex-1 flex-wrap items-end justify-between space-y-2 text-sm">
-                                                            <p className="text-gray-500"><strong>Qty:</strong> 1</p>
+                                                            <div className="flex items-center">
+                                                                <span className="mr-3 text-gray-500"><strong>Qty:</strong></span>
+                                                                <div className="flex items-center border border-gray-200 rounded">
+                                                                    <button 
+                                                                        onClick={() => handleDecreaseQuantity(book)}
+                                                                        className="px-3 py-1 border-r hover:bg-gray-100"
+                                                                        disabled={book.quantity <= 1}
+                                                                    >
+                                                                        -
+                                                                    </button>
+                                                                    <span className="px-3 py-1">{book.quantity}</span>
+                                                                    <button 
+                                                                        onClick={() => handleIncreaseQuantity(book)}
+                                                                        className="px-3 py-1 border-l hover:bg-gray-100"
+                                                                    >
+                                                                        +
+                                                                    </button>
+                                                                </div>
+                                                            </div>
 
                                                             <div className="flex">
-                                                                <button onClick={() => handleRemoveItem(book)} type="button" className="font-medium text-indigo-600 hover:text-indigo-500">
+                                                                <button 
+                                                                    onClick={() => handleRemoveItem(book)} 
+                                                                    type="button" 
+                                                                    className="font-medium text-indigo-600 hover:text-indigo-500"
+                                                                >
                                                                     Remove
                                                                 </button>
                                                             </div>

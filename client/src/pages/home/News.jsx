@@ -30,7 +30,7 @@ const News = () => {
     const latestBooks = sortedBooks.slice(0, 5);
 
     return (
-        <div className='py-10'>
+        <div className='py-10 ml-10'>
             <h2 className='text-3xl font-semibold mb-6'>New</h2>
             <div>
                 <Swiper

@@ -11,6 +11,7 @@ import { CircleLoader } from 'react-spinners';
 
 const EditBook = () => {
   const {id} = useParams();
+  console.log(id)
   const { data: books, isLoading: isLoadingBook, isError: isErrorBook, refetch } = useGetBookByIdQuery(id);
   const book = books?.book || {};
   // console.log(book?.title);
@@ -20,7 +21,7 @@ const EditBook = () => {
   const [previewUrl, setPreviewUrl] = useState('') 
 
   useEffect(() => {
-    if(book){
+    if(book && !selectedFile) {
       setValue("title", book.title)
       setValue("description", book.description)
       setValue("category", book.category)
@@ -29,7 +30,7 @@ const EditBook = () => {
       setValue("newPrice", book.newPrice)
       setPreviewUrl(`${getURL(book?.coverImage)}`)
     }
-  }, [book, setValue, setPreviewUrl])
+  }, [book, setValue, selectedFile])
 
   const handleFileChange = (e) => {
     const file = e.target.files[0]
@@ -45,24 +46,36 @@ const EditBook = () => {
       let coverImage = book.coverImage;
 
       if (selectedFile) {
-        const formData = new FormData()
-        formData.append('image', selectedFile)
+        // Kiểm tra xem ảnh mới có trùng tên với ảnh cũ không
+        const newFileName = selectedFile.name;
+        const checkResponse = await axios.post('http://localhost:3000/api/upload/check', {
+          filename: newFileName
+        });
 
-        const uploadResponse = await axios.post('http://localhost:3000/api/upload/', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        })
-        coverImage = uploadResponse.data.filename
+        // Nếu ảnh chưa tồn tại, upload ảnh mới
+        if (!checkResponse.data.exists) {
+          const formData = new FormData()
+          formData.append('image', selectedFile)
+
+          const uploadResponse = await axios.post('http://localhost:3000/api/upload/', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          })
+          coverImage = uploadResponse.data.filename
+        } else {
+          // Nếu ảnh đã tồn tại, sử dụng tên file hiện có
+          coverImage = newFileName
+        }
       }
 
-      const updatedBook = {
+      const updateData = {
+        id: id,
         ...data,
-        coverImage,
-        _id: id
+        coverImage
       }
 
-      await updateBook(updatedBook).unwrap()
+      await updateBook(updateData).unwrap()
       toast.success("Cập nhật sách thành công!")
 
     } catch (error) {
