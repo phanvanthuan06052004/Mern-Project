@@ -16,6 +16,8 @@ import AddBook from "../pages/Admin/children/AddBook/AddBook";
 import Management from "../pages/Admin/children/Management";
 import EditBook from "../pages/Admin/children/EditBook";
 import BookAll from "../pages/Books/BookAll";
+import Order from "../pages/Admin/children/Order/Order.jsx";
+import EditOrder from "../pages/Admin/children/Order/EditOrder.jsx";
 const router = createBrowserRouter([
     {
         path: "/",
@@ -84,6 +86,14 @@ const router = createBrowserRouter([
             {
                 path: "/admin/manage-books",
                 element: <AdminRouterCheck><Management/></AdminRouterCheck >
+            },
+            {
+                path: "/admin/orders",
+                element: <AdminRouterCheck><Order/></AdminRouterCheck >
+            },
+            {
+                path: "/admin/edit-order/:id",
+                element: <AdminRouterCheck><EditOrder/></AdminRouterCheck >
             }
 
         ]
