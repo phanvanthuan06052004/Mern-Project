@@ -48,7 +48,7 @@ const CartPage = () => {
                                         onClick={() => handleRemoveAll()}
                                         className="relative -m-2 py-1 px-2 bg-red-500 text-white rounded-md hover:bg-secondary transition-all duration-200  "
                                     >
-                                        <span className="">Clear Cart</span>
+                                        <span className="">Xóa giỏ hàng</span>
                                     </button>
                                 </div>
                             </div>
@@ -104,7 +104,7 @@ const CartPage = () => {
                                                                     type="button" 
                                                                     className="font-medium text-indigo-600 hover:text-indigo-500"
                                                                 >
-                                                                    Remove
+                                                                    Xóa
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -120,27 +120,27 @@ const CartPage = () => {
 
                         <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                             <div className="flex justify-between text-base font-medium text-gray-900">
-                                <p>Subtotal</p>
+                                <p>Tổng tiền</p>
                                 <p>${totalPrice ? totalPrice : 0}</p>
                             </div>
-                            <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
+                            <p className="mt-0.5 text-sm text-gray-500">Phí vận chuyển và thuế được tính tại thanh toán.</p>
                             <div className="mt-6">
                                 <Link
                                     to="/checkout"
                                     className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                                 >
-                                    Checkout
+                                    Thanh toán
                                 </Link>
                             </div>
                             <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                                 <Link to="/">
-                                    or
+                                    hoặc
                                     <button
                                         type="button"
 
                                         className="font-medium text-indigo-600 hover:text-indigo-500 ml-1"
                                     >
-                                        Continue Shopping
+                                        Tiếp tục mua sắm
                                         <span aria-hidden="true"> &rarr;</span>
                                     </button>
                                 </Link>
@@ -150,10 +150,10 @@ const CartPage = () => {
                     <div className=' mt-12 h-full flex flex-col  items-center  overflow-hidden bg-white  '>
                         <img src={`${getURL("cartEmpty.jpg")}`} alt="" className='h-[200px]' />
                         <div className='my-3 text-center '>
-                            <h2 className='text-2xl mb-2'>Your Cart Is <span className='text-red-500'>Empty</span></h2>
-                            <p>Must add items on the cart before you process to checkout.</p>
+                            <h2 className='text-2xl mb-2'>Giỏ hàng của bạn <span className='text-red-500'>Trống</span></h2>
+                            <p>Phải thêm sản phẩm vào giỏ hàng trước khi thanh toán.</p>
                         </div>
-                        <Link to="/" className='bg-red-400 hover:bg-red-700 text-white px-5 py-2 rounded-md'><button>RETURN TO SHOP</button></Link>
+                        <Link to="/" className='bg-red-400 hover:bg-red-700 text-white px-5 py-2 rounded-md'><button>TIẾP TỤC MUA SẮM</button></Link>
                     </div>
             }
         </>

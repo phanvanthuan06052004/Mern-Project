@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearCart } from '../../redux/features/cart/cartSlide';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form" //get value from input
 import { useAuth } from '../../Context/authContext';
@@ -12,7 +13,7 @@ const CheckoutPage = () => {
     const navigate = useNavigate();
     //handle get data 
     const carts = useSelector((state) => state.cart.cartItem)
-
+    const dispatch = useDispatch();
     //tính tổng giá trị và tổng số lượng
     const totalPrice = carts.reduce((accumulator, currentValue) => 
         accumulator + (currentValue.newPrice * currentValue.quantity), 0).toFixed(2);
@@ -44,14 +45,20 @@ const CheckoutPage = () => {
                 city: data.city,
             },
             phone: data.phone,
-            product: carts.map(item => item?._id),
+            products: carts.map(item => ({
+                productId: item._id,
+                quantity: item.quantity,
+                price: item.newPrice
+            })),
+            status: "CHỜ XỬ LÝ",
             totalPrice: totalPrice,
         }
+        console.log(newOrder.products)
         try {
             const response = await createOrder(newOrder).unwrap(); //unwrap() giúp lấy dữ liệu từ response va nem ra loi
             if (response) {
                 toast.success("Đặt hàng thành công!");
-                // dispatch(clearCart()); // Xóa giỏ hàng sau khi đặt hàng
+                dispatch(clearCart()); // Xóa giỏ hàng sau khi đặt hàng
                 navigate('/orders'); 
             }
         } catch (error) {

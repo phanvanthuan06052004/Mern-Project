@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 import { useGetBooksQuery } from '../../redux/features/Book/booksAPI'
 import BooksCart from './BooksCart'
+import { useLocation } from 'react-router-dom';
 
 const BookAll = () => {
   const { data: books = [] } = useGetBooksQuery();
   const booksList = books?.book || [];
+  const location = useLocation()
+  const searchParams = new URLSearchParams(location.search)
+  const searchQuery = searchParams.get("search")
 
   const [filters, setFilters] = useState({
     category: 'all',
@@ -14,6 +18,9 @@ const BookAll = () => {
 
   // Lọc và sắp xếp sách
   const filteredBooks = booksList.filter(book => {
+    //handel search query
+    if(searchQuery && !book.title.toLowerCase().includes(searchQuery.toLowerCase())) return false
+
     if (filters.category !== 'all' && book.category !== filters.category) {
       return false;
     }
@@ -46,6 +53,9 @@ const BookAll = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
+      {
+        searchQuery && <h2 className='text-2xl font-bold text-center my-8'>Kết quả tìm kiếm cho: "{searchQuery}"</h2>
+      }
       <div className="mb-8 flex flex-wrap gap-4">
         <select 
           className="px-4 py-2 border rounded-md"

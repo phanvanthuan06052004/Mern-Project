@@ -14,16 +14,16 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { useGetBooksQuery } from '../../redux/features/Book/booksAPI';
 
-const categories = ["choose a genre", "Business", "Fiction", "Horror", "Adventure"]
+const categories = ["Chọn thể loại", "Business", "Fiction", "Horror", "Adventure"]
 const BestSeller = () => {
     
-    const [cateOption, setCateOption] = useState("choose a genre");
+    const [cateOption, setCateOption] = useState("Chọn thể loại");
 
     const {data: books =[]} = useGetBooksQuery();
     
 
     const booksList = books?.book || [];
-    const filter = cateOption === "choose a genre" ? booksList : booksList.filter(x => x.category === cateOption.toLowerCase());
+    const filter = cateOption === "Chọn thể loại" ? booksList : booksList.filter(x => x.category === cateOption.toLowerCase());
 
 
     return (
