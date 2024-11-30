@@ -13,13 +13,17 @@ const createOrder = async (req, res) => {
 
 const getOrderByEmail = async (req, res) => {
     try {
-        const orders = await Order.find({email: req.params.email}).sort({createdAt: -1}); //sort by createdAt descending
-        if(!orders){
-            return res.status(404).json({message: "Không tìm thấy đơn hàng!"});
-        }
+        const { email } = req.params;
+        const orders = await Order.find({ email })
+            .populate({
+                path: 'products.productId',  // Thêm populate cho products.productId
+                model: 'Book',
+                select: 'title coverImage price' // Chọn các trường cần lấy
+            })
+            .sort({ createdAt: -1 }); // Sắp xếp theo thời gian mới nhất
         res.status(200).json(orders);
     } catch (error) {
-        console.log(error);
+        res.status(500).json({ message: error.message });
     }
 }
 export {createOrder, getOrderByEmail}

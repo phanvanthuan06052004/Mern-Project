@@ -33,15 +33,32 @@ const orderSchema = new Schema({
         type: String,
         required: true,
     },
-    product: [  
+    products: [
         {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Book', //reference to book model
-    }],
+            productId: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Book',
+                required: true
+            },
+            quantity: {
+                type: Number,
+                required: true,
+                min: 1
+            },
+            price: {
+                type: Number,
+                required: true
+            }
+        }
+    ],
     totalPrice: {
         type: Number,
         required: true,
     },
+    status: {
+        type: String,
+        default: "CHỜ XỬ LÝ",
+    }
 }, {
     timestamps: true, //auto create createdAt and updatedAt fields
 });

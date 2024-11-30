@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { RiBarChartHorizontalLine } from "react-icons/ri";
 import { HiOutlineSearch } from "react-icons/hi";
 import { FaRegUser } from "react-icons/fa";
@@ -21,6 +21,8 @@ const Navbar = () => {
     const items = useSelector((state) => state.cart.cartItem)
     const [dropdown, setDropdown] = useState(false);
     const { currentUser, signout } = useAuth()
+    const [searchKey, setSearchKey] = useState("")
+    const navigate = useNavigate()
     console.log(currentUser?.photoURL)
     //handle signout
     const handleSignout = async () => { 
@@ -32,14 +34,22 @@ const Navbar = () => {
             toast.error(error.message)
         }
     }
+
+    const handleSearch = (e) => {
+        e.preventDefault()
+        navigate(`/book?search=${searchKey}`)
+        setSearchKey("")
+    }
     return (
         <header className='max-w-screen-2xl mx-auto px-4 py-6 bg-blackBG' >
             <nav className='flex justify-between item-center'>
                 <div className='flex items-center md:gap-16 gap-4'>
                     <Link to={"/"}> <RiBarChartHorizontalLine className='size-6' /> </Link>
                     <div className='relative sm:w-72 w-40 space-x-2'>
-                        <HiOutlineSearch className='absolute inline-block left-3 inset-y-2' />
-                        <input type="text" placeholder='search...' className='bg-[#EAEAEA] rounded-md w-full py-1 md:px-8 px-6 focus:outline-none' />
+                        <form onSubmit={handleSearch}>
+                            <HiOutlineSearch className='absolute inline-block left-3 inset-y-2' />
+                            <input onChange={(e) => setSearchKey(e.target.value)} type="text" placeholder='Tìm kiếm...' className='bg-[#EAEAEA] rounded-md w-full py-1 md:px-8 px-6 focus:outline-none' />
+                        </form>
                     </div>
                 </div>
                 <div className='flex items-center gap-8'>

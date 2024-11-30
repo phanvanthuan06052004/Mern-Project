@@ -60,7 +60,7 @@ const News = () => {
                             <SwiperSlide key={index}>
                                 <div className='flex flex-col sm:flex-row sm:justify-between items-center'>
                                     <div>
-                                        <Link to="/" className='text-lg font-medium hover:text-blue-500 mb-4'><h3>{books.title}</h3></Link>
+                                        <Link to={`/book/${books._id}`} className='text-lg font-medium hover:text-blue-500 mb-4'><h3>{books.title}</h3></Link>
                                         <div className='bg-primary w-12 h-[3px] mb-5'></div>
                                         <p>{books.description}</p>
                                     </div>

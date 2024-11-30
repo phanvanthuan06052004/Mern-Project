@@ -18,7 +18,7 @@ const cartSlice = createSlice({
                 const newItem = { ...action.payload, quantity: 1 }; // thêm sản phẩm mới vào giỏ hàng
                 state.cartItem.push(newItem);
             }
-            toast.success('Product added to cart!', {
+            toast.success('Thêm vào giỏ hàng thành công!', {
                 position: "top-right",
                 autoClose: 2000,
                 hideProgressBar: false,
