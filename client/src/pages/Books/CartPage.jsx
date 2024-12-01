@@ -32,7 +32,7 @@ const CartPage = () => {
     // Sửa cách tính totalPrice để nhân với quantity
     const totalPrice = carts.reduce((accumulator, currentValue) => 
         accumulator + (currentValue.newPrice * currentValue.quantity), 0
-    ).toFixed(2);
+    ).toFixed(3);
 
     return (
         <>
@@ -73,7 +73,7 @@ const CartPage = () => {
                                                                 <h3>
                                                                     <Link to='/'>{book?.title}</Link>
                                                                 </h3>
-                                                                <p className="sm:ml-4">${book?.newPrice}</p>
+                                                                <p className="sm:ml-4">{Number(book?.newPrice).toFixed(3)} VNĐ</p>
                                                             </div>
                                                             <p className="mt-1 text-sm text-gray-500 capitalize"><strong>Category:</strong> {book?.category}</p>
                                                         </div>
@@ -121,7 +121,7 @@ const CartPage = () => {
                         <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                             <div className="flex justify-between text-base font-medium text-gray-900">
                                 <p>Tổng tiền</p>
-                                <p>${totalPrice ? totalPrice : 0}</p>
+                                <p>{Number(totalPrice).toFixed(3)} VNĐ</p>
                             </div>
                             <p className="mt-0.5 text-sm text-gray-500">Phí vận chuyển và thuế được tính tại thanh toán.</p>
                             <div className="mt-6">

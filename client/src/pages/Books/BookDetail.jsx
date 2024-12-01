@@ -57,8 +57,8 @@ const BookDetail = () => {
                     <h1 className="text-3xl font-bold text-gray-900">{book.title}</h1>
                     
                     <div className="flex items-center space-x-4">
-                        <span className="text-2xl font-bold text-red-600">${book?.newPrice}</span>
-                        <span className="text-lg text-gray-500 line-through">${book?.oldPrice}</span>
+                        <span className="text-2xl font-bold text-red-600">{Number(book?.newPrice).toFixed(3)} VNĐ</span>
+                        <span className="text-lg text-gray-500 line-through">{Number(book?.oldPrice).toFixed(3)} VNĐ</span>
                     </div>
 
                     <div className="space-y-4 text-gray-700">
@@ -123,7 +123,7 @@ const BookDetail = () => {
                                 <Link to={`/book/${relatedBook._id}`}>
                                     <h3 className="font-semibold text-lg mt-4 mb-2 truncate">{relatedBook.title}</h3>
                                 </Link>
-                                <p className="text-red-600 font-bold">${relatedBook.newPrice}</p>
+                                <p className="text-red-600 font-bold">{Number(relatedBook.newPrice).toFixed(3)} VNĐ</p>
                                 <button 
                                     onClick={() => handleAddBookToCart(relatedBook)}
                                     className="mt-3 w-full btn-primary px-4 py-2 rounded-lg flex items-center justify-center space-x-1 hover:opacity-90 transition-opacity"
