@@ -32,11 +32,11 @@ const BooksCart = ({ books }) => {
                         </h3></Link>
                         <p className="text-gray-600 mb-5">{books?.description.length > 50 ? `${books?.description.slice(0, 50)}...` : books?.description} </p>
                         <p className="font-medium mb-5">
-                            ${books?.newPrice} <span className="line-through font-normal ml-2">${books?.oldPrice}</span>
+                            {Number(books?.newPrice).toFixed(3)} VNĐ <span className="line-through font-normal ml-2">{Number(books?.oldPrice).toFixed(3)} VNĐ</span>
                         </p>
                         <button onClick={() => handleAddBookToCart(books)} className="btn-primary px-6 space-x-1 flex items-center gap-1 ">
                             <FiShoppingCart className="" />
-                            <span className='text-sm'>Add to Cart</span>
+                            {/* <span className='text-sm'>Add to Cart</span> */}
                         </button>
                     </div>
                 </div>

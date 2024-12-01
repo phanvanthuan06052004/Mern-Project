@@ -12,9 +12,9 @@ import { toast } from 'react-toastify';
 
 const navigation = [
     { name: "Dashboard", path: "/admin" },
-    { name: "Order", path: "/Orders" },
-    { name: "Cart", path: "/cart" },
-    { name: "Check out", path: "/checkout" },
+    { name: "Lịch sử đơn hàng", path: "/Orders" },
+    { name: "Giỏ hàng", path: "/cart" },
+    { name: "Thanh toán", path: "/checkout" },
 ];
 const Navbar = () => {
     const location = useLocation();

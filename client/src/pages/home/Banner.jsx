@@ -4,7 +4,7 @@ import bgBanner from "../../assets/bg-banner2.jpg"
 
 const Banner = () => {
     return (
-        <div className='flex flex-col md:flex-row-reverse py-16 mx-18 gap-12 justify-between items-center bg-cover bg-center bg-cover bg-center' 
+        <div className='flex flex-col md:flex-row-reverse py-16 max-w-screen-2xl mx-auto px-4 gap-12 justify-between items-center bg-cover bg-center' 
              style={{backgroundImage: `url(${bgBanner})`}}
              >
             <div className='md:w-1/2 w-full flex items-center md:justify-end '>

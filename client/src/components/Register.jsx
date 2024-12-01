@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 const Register = () => {
     const [validated, setValidated] = useState("")
     const navigate = useNavigate()
-    const { signup } = useAuth()
+    const { signup, signinWithGoogle } = useAuth()
     console.log(signup)
     const {
         register,
@@ -24,6 +24,16 @@ const Register = () => {
             toast.error(error.message) 
             // console.log(error.message)
             setValidated("Vui lòng kiểm tra lại email và mật khẩu!")
+        }
+        }
+
+    const handleGoogleSignin = async () => {
+        try {
+            await signinWithGoogle()
+            toast.success("Đăng Ký thành công!")
+            navigate("/")
+        } catch (error) {
+            toast.error(error.message)
         }
     }
 
@@ -47,7 +57,7 @@ const Register = () => {
                 </form>
                 <p className='text-sm font-medium mt-4 align-baseline'>Do have an account? Please <Link className='text-blue-300 hover:text-blue-500' to="/login">Login</Link></p>
                 <div className='mt-4'>
-                    <button className='w-full flex flex-wrap items-center justify-center gap-1 py-2 px-4 text-white font-bold bg-black hover:bg-blue-500 rounded'>
+                    <button onClick={handleGoogleSignin} className='w-full flex flex-wrap items-center justify-center gap-1 py-2 px-4 text-white font-bold bg-black hover:bg-blue-500 rounded'>
                         Sign up with Google
                         <FaGoogle />
                     </button>

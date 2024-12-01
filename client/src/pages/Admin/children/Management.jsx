@@ -45,12 +45,12 @@ const Management = () => {
                 <div className="rounded-t mb-0 px-4 py-3 border-0">
                     <div className="flex flex-wrap items-center justify-between">
                         <div className="relative px-4 max-w-full flex-grow flex-1">
-                            <h3 className="font-semibold text-base text-blueGray-700">All Books</h3>
+                            <h3 className="font-semibold text-base text-blueGray-700">Quản lý sách</h3>
                         </div>
                         <div className="relative px-4 max-w-full">
                             <input
                                 type="text" 
-                                placeholder="Search books..."
+                                placeholder="Tìm kiếm sách..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                                 className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
