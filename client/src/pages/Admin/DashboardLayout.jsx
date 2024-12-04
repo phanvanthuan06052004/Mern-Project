@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { HiViewGridAdd } from 'react-icons/hi'
-import { Link, Outlet, useNavigate } from 'react-router-dom'
+import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom'
 import { MdOutlineManageHistory } from "react-icons/md";
 import { ToastContainer } from 'react-toastify';
 import { BsCart } from "react-icons/bs";
@@ -10,6 +10,23 @@ import { FiUser } from "react-icons/fi";
 const DashboardLayout = () => {
     const [showNav, setShowNav] = useState(false);
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const getPageTitle = () => {
+        switch(location.pathname) {
+            case '/admin':
+                return 'Dashboard';
+            case '/admin/orders':
+                return 'Orders Management';
+            case '/admin/manage-books':
+                return 'Books Management';
+            case '/admin/add-book':
+                return 'Add New Book';
+            default:
+                return 'Dashboard';
+        }
+    }
+
     const handleLogout= () => {
         localStorage.removeItem("token")
         navigate("/")
@@ -18,7 +35,7 @@ const DashboardLayout = () => {
     <>
         <section className="flex md:bg-gray-100 min-h-screen overflow-hidden">
             <aside className="hidden sm:flex sm:flex-col">
-                <a href="/" className="inline-flex items-center justify-center h-20 w-20 bg-purple-600 hover:bg-purple-500 focus:bg-purple-500">
+                <a href="/" className="inline-flex items-center justify-center h-20 w-20 bg-slate-700 hover:bg-red-400 focus:bg-red-400">
                     <img src="/fav-icon.png" alt="" />
                 </a>
                 <div className="flex-grow flex flex-col justify-between text-gray-500 bg-gray-800">
@@ -123,7 +140,7 @@ const DashboardLayout = () => {
                 <main className="p-6 sm:p-10 space-y-6 ">
                     <div className="flex flex-col space-y-6 md:space-y-0 md:flex-row justify-between">
                         <div className="mr-6">
-                            <h1 className="text-4xl font-semibold mb-2">Dashboard</h1>
+                            <h1 className="text-4xl font-semibold mb-2">{getPageTitle()}</h1>
                         </div>
                         <div className="flex flex-col md:flex-row items-start justify-end -mb-3">
                             <Link 

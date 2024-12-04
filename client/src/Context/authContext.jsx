@@ -39,7 +39,7 @@ export const AuthProvider = ({children}) => {
     //***************login, signup by email and password start***************//
     //handle signup user
     const signup = async (email, password) => {
-        return await createUserWithEmailAndPassword(auth, email, password)
+        return await createUserWithEmailAndPassword(auth, email, password) 
     }
 
     //handle signin user

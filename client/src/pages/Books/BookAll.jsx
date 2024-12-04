@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { useGetBooksQuery } from '../../redux/features/Book/booksAPI'
 import BooksCart from './BooksCart'
 import { useLocation } from 'react-router-dom';
-
+import { GrFormPrevious } from "react-icons/gr";
+import { GrFormNext } from "react-icons/gr";
 const BookAll = () => {
   const { data: books = [] } = useGetBooksQuery();
   const booksList = books?.book || [];
@@ -12,9 +13,12 @@ const BookAll = () => {
 
   const [filters, setFilters] = useState({
     category: 'all',
-    priceRange: 'all',
+    priceRange: 'all', 
     sortBy: 'newest'
   });
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const booksPerPage = 9;
 
   // Lọc và sắp xếp sách
   const filteredBooks = booksList.filter(book => {
@@ -51,6 +55,14 @@ const BookAll = () => {
     }
   });
 
+  // Tính toán phân trang
+  const indexOfLastBook = currentPage * booksPerPage;
+  const indexOfFirstBook = indexOfLastBook - booksPerPage;
+  const currentBooks = filteredBooks.slice(indexOfFirstBook, indexOfLastBook);
+  const totalPages = Math.ceil(filteredBooks.length / booksPerPage);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       {
@@ -60,7 +72,10 @@ const BookAll = () => {
         <select 
           className="px-4 py-2 border rounded-md"
           value={filters.category}
-          onChange={(e) => setFilters({...filters, category: e.target.value})}
+          onChange={(e) => {
+            setFilters({...filters, category: e.target.value});
+            setCurrentPage(1);
+          }}
         >
           <option value="all">Tất cả thể loại</option>
           <option value="business">Business</option>
@@ -74,18 +89,24 @@ const BookAll = () => {
         <select
           className="px-4 py-2 border rounded-md"
           value={filters.priceRange}
-          onChange={(e) => setFilters({...filters, priceRange: e.target.value})}
+          onChange={(e) => {
+            setFilters({...filters, priceRange: e.target.value});
+            setCurrentPage(1);
+          }}
         >
           <option value="all">Tất cả giá</option>
-          <option value="under20">Dưới $20</option>
-          <option value="20to50">$20 - $50</option>
-          <option value="over50">Trên $50</option>
+          <option value="under20">Dưới 20.000đ</option>
+          <option value="20to50">20.000đ - 50.000đ</option>
+          <option value="over50">Trên 50.000đ</option>
         </select>
 
         <select
           className="px-4 py-2 border rounded-md"
           value={filters.sortBy}
-          onChange={(e) => setFilters({...filters, sortBy: e.target.value})}
+          onChange={(e) => {
+            setFilters({...filters, sortBy: e.target.value});
+            setCurrentPage(1);
+          }}
         >
           <option value="newest">Mới nhất</option>
           <option value="priceAsc">Giá tăng dần</option>
@@ -94,10 +115,45 @@ const BookAll = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-        {filteredBooks.map((book) => (
+        {currentBooks.map((book) => (
           <BooksCart key={book._id} books={book} />
         ))}
       </div>
+
+      {/* Phân trang */}
+      {totalPages > 1 && (
+        <div className="flex justify-center mt-8 gap-2">
+          <button
+            onClick={() => paginate(currentPage - 1)}
+            disabled={currentPage === 1}
+            className={`px-4 py-2 rounded-md ${currentPage === 1 ? 'bg-gray-300' : 'bg-blue-500 hover:bg-blue-600 text-white'}`}
+          >
+            <GrFormPrevious />
+          </button>
+          
+          {[...Array(totalPages)].map((_, index) => (
+            <button
+              key={index + 1}
+              onClick={() => paginate(index + 1)}
+              className={`px-4 py-2 rounded-md ${
+                currentPage === index + 1 
+                  ? 'bg-blue-500 text-white'
+                  : 'bg-gray-200 hover:bg-gray-300'
+              }`}
+            >
+              {index + 1}
+            </button>
+          ))}
+
+          <button
+            onClick={() => paginate(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className={`px-4 py-2 rounded-md ${currentPage === totalPages ? 'bg-gray-300' : 'bg-blue-500 hover:bg-blue-600 text-white'}`}
+          >
+            <GrFormNext />
+          </button>
+        </div>
+      )}
     </div>
   )
 }

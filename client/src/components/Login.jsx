@@ -30,7 +30,6 @@ const Login = () => {
             } else if (error.code === 'auth/wrong-password') {
                 errorMessage = "Mật khẩu không chính xác"
             }
-            toast.error(errorMessage)
             setValidated(errorMessage)
         }
     }
@@ -52,21 +51,21 @@ const Login = () => {
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div>
                         <label htmlFor="email" className='text-sm pb-2 font-bold block text-gray-700 '>Email</label>
-                        <input {...register("email", { required: true })} className='shadow appearance-none border rounded py-3 px-2 leading-tight focus:outline-none focus:shadow' placeholder='Enter your Email' type="email" name="email" id="email" />
+                        <input {...register("email", { required: true })} className='w-full shadow appearance-none border rounded py-3 px-2 leading-tight focus:outline-none focus:shadow' placeholder='Enter your Email' type="email" name="email" id="email" />
                     </div>
                     <div>
                         <label htmlFor="password" className='text-sm pb-2 font-bold block text-gray-700 '>Password</label>
-                        <input {...register("password", { required: true })} className='shadow appearance-none border rounded py-3 px-2 leading-tight focus:outline-none focus:shadow' placeholder='Enter your password' type="password" name="password" id="password" />
+                        <input {...register("password", { required: true })} className='w-full shadow appearance-none border rounded py-3 px-2 leading-tight focus:outline-none focus:shadow' placeholder='Enter your password' type="password" name="password" id="password" />
                     </div>
                     {
                         validated && <p className='mt-2 text-red-500 mb-2 italic text-xs'>{validated}</p>
                     }
-                    <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold mt-4 px-4 py-2 rounded focus:outline-none'>Login</button>
+                    <button className='w-full bg-blue-500 hover:bg-blue-700 text-white font-bold mt-4 px-4 py-2 rounded focus:outline-none'>Login</button>
                 </form>
-                <p className='text-sm font-medium mt-4 align-baseline'>Don't have an account? Please <Link className='text-blue-300 hover:text-blue-500' to="/register">Register</Link></p>
+                <p className='text-sm font-medium mt-4 align-baseline'>Không có tài khoản? Vui lòng <Link className='text-blue-300 hover:text-blue-500' to="/register">Đăng ký</Link></p>
                 <div className='mt-4'>
                     <button onClick={() => handleGoogleSignin()} className='w-full flex flex-wrap items-center justify-center gap-1 py-2 px-4 text-white font-bold bg-black hover:bg-blue-500 rounded'>
-                        Sign in with Google
+                        Đăng nhập với Google
                         <FaGoogle />
                     </button>
                 </div>

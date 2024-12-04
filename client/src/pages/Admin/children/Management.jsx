@@ -4,6 +4,7 @@ import { useDeleteBookMutation, useGetBooksQuery } from '../../../redux/features
 import { CircleLoader } from 'react-spinners'
 import { toast } from 'react-toastify'
 import { Link } from 'react-router-dom'
+import { getURL } from '../../../utils/getURLImg'
 const Management = () => {
   const navigate = useNavigate()
   const {data: books=[], isLoading, isError, refetch} = useGetBooksQuery()
@@ -67,6 +68,9 @@ const Management = () => {
                                     STT
                                 </th>
                                 <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                    Ảnh
+                                </th>
+                                <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                                     Book Title
                                 </th>
                                 <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
@@ -87,6 +91,13 @@ const Management = () => {
                                     <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700">
                                         {index + 1}
                                     </th>
+                                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                        <img 
+                                            src={`${getURL(book?.coverImage)}`}
+                                            alt={book.title}
+                                            className="w-12 h-16 object-cover rounded"
+                                        />
+                                    </td>
                                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                         {book.title}
                                     </td>

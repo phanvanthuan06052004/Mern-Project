@@ -66,10 +66,7 @@ const OrderPage = () => {
                                         </div>
                                         <div className="text-right">
                                             <p className="font-medium">
-                                                {new Intl.NumberFormat('vi-VN', { 
-                                                    style: 'currency', 
-                                                    currency: 'VND' 
-                                                }).format(item.price)}
+                                                {Number(item.price).toFixed(3)} VNĐ
                                             </p>
                                         </div>
                                     </div>
@@ -80,10 +77,7 @@ const OrderPage = () => {
                                 <div className="flex justify-between items-center">
                                     <span className="font-semibold">Thành tiền:</span>
                                     <span className="font-bold text-xl text-orange-500">
-                                        {new Intl.NumberFormat('vi-VN', { 
-                                            style: 'currency', 
-                                            currency: 'VND' 
-                                        }).format(order.totalPrice)}
+                                    {Number(order.totalPrice).toFixed(3)} VNĐ
                                     </span>
                                 </div>
                             </div>

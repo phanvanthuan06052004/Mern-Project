@@ -55,13 +55,13 @@ const Navbar = () => {
                 <div className='flex items-center gap-8'>
                     <Link 
                         to={"/"} 
-                        className={`font-roboto transition-colors duration-300 ${location.pathname === "/" ? "text-primary" : "text-black hover:text-primary"}`}
+                        className={`font-primary transition-colors duration-300 ${location.pathname === "/" ? "text-primary" : "text-black hover:text-primary"}`}
                     >
                         Home
                     </Link>
                     <Link 
                         to={"/book"} 
-                        className={`font-roboto transition-colors duration-300 ${location.pathname === "/book" ? "text-primary" : "text-black hover:text-primary"}`}
+                        className={`font-primary transition-colors duration-300 ${location.pathname === "/book" ? "text-primary" : "text-black hover:text-primary"}`}
                     >
                         Sản Phẩm
                     </Link>

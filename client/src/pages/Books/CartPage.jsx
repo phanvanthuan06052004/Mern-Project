@@ -71,7 +71,7 @@ const CartPage = () => {
                                                         <div>
                                                             <div className="flex flex-wrap justify-between text-base font-medium text-gray-900">
                                                                 <h3>
-                                                                    <Link to='/'>{book?.title}</Link>
+                                                                    <Link to={`/book/${book?._id}`}>{book?.title}</Link>
                                                                 </h3>
                                                                 <p className="sm:ml-4">{Number(book?.newPrice).toFixed(3)} VNĐ</p>
                                                             </div>

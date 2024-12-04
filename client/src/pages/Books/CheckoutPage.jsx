@@ -16,7 +16,7 @@ const CheckoutPage = () => {
     const dispatch = useDispatch();
     //tính tổng giá trị và tổng số lượng
     const totalPrice = carts.reduce((accumulator, currentValue) => 
-        accumulator + (currentValue.newPrice * currentValue.quantity), 0).toFixed(2);
+        accumulator + (currentValue.newPrice * currentValue.quantity), 0).toFixed(3);
     const totalQuantity = carts.reduce((accumulator, currentValue) => 
         accumulator + currentValue.quantity, 0);
 
