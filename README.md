@@ -56,47 +56,49 @@ Dự án Book Store là một trang web bán sách trực tuyến được xây 
 
 1. **Clone repository**
 
-git clone [URL của repository]
+- git clone [URL của repository]
 
 
 2. **Cài đặt dependencies cho Backend**
 
-cd admin
-npm install
+- cd admin
+- npm install
 
 
 3. **Cài đặt dependencies cho Frontend**
 
-cd client
-npm install
+- cd client
+- npm install
 
 
 4. **Tạo file .env trong thư mục admin**
 
-PORT=5000
-MONGODB_URI=[URL MongoDB của bạn]
+- PORT=5000
+- MONGODB_URI=[URL MongoDB của bạn]
 
 
 5. **Tạo file .env trong thư mục client**
 
-VITE_FIREBASE_API_KEY=[Firebase API Key]
-VITE_FIREBASE_AUTH_DOMAIN=[Firebase Auth Domain]
-VITE_FIREBASE_PROJECT_ID=[Firebase Project ID]
-VITE_FIREBASE_STORAGE_BUCKET=[Firebase Storage Bucket]
-VITE_FIREBASE_MESSAGING_SENDER_ID=[Firebase Sender ID]
-VITE_FIREBASE_APP_ID=[Firebase App ID]
+- VITE_FIREBASE_API_KEY=[Firebase API Key]
+- VITE_FIREBASE_AUTH_DOMAIN=[Firebase Auth Domain]
+- VITE_FIREBASE_PROJECT_ID=[Firebase Project ID]
+- VITE_FIREBASE_STORAGE_BUCKET=[Firebase Storage Bucket]
+- VITE_FIREBASE_MESSAGING_SENDER_ID=[Firebase Sender ID]
+- VITE_FIREBASE_APP_ID=[Firebase App ID]
 
 
 
 6. **Chạy ứng dụng**
 
-Backend: cd admin
-	npm run dev
+Backend: 
+- cd admin
+- npm run dev
 
 
 
-Frontend: cd client
-	npm run dev
+Frontend: 
+- cd client
+- npm run dev
 
 
 Ứng dụng sẽ chạy tại:
