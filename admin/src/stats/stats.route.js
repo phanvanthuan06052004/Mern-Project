@@ -6,6 +6,6 @@ const routesDashboard = express.Router();
 
 
 // Function to calculate admin stats
-routesDashboard.get("/", verifyToken ,getAdminStats)
+routesDashboard.get("/", verifyToken, getAdminStats)
 
 export default routesDashboard;

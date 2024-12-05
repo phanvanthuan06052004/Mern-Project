@@ -7,7 +7,7 @@ const getAdminStats = async (req, res) => {
         const totalOrders = await Order.countDocuments();
 
         //get total sales
-        const totalSales = await Order.aggregate([
+        const totalSales = await Order.aggregate([ //phương pháp thực hiện thao tác phân tích dữ liệu phức tạp
             {
                 $group: { 
                     _id: null, //1. nhóm tất cả các document 
