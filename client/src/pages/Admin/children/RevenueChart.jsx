@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 
@@ -12,20 +12,52 @@ ChartJS.register(
   );
 
 const RevenueChart = () => {
-    const revenueData = [500, 700, 800, 600, 750, 900, 650, 870, 960, 1020, 1100, 1150];
+  const [revenueData, setRevenueData] = useState([]);
+  const [labels, setLabels] = useState([]);
+  const token = localStorage.getItem('token');
+  useEffect(() => {
+    const fetchRevenueData = async () => {
+        try {
+            const response = await fetch('http://localhost:3000/api/dashboard', {
+                credentials: 'include',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            const data = await response.json();
+            
+            // Xử lý dữ liệu từ monthlySales
+            const processedData = data.monthlySales.map(item => ({
+                month: item._id,
+                sales: item.totalSales
+            }));
 
-  const data = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-    datasets: [
+            // Sắp xếp dữ liệu theo tháng
+            setRevenueData(processedData.map(item => item.sales));
+            setLabels(processedData.map(item => {
+                const date = new Date(item.month + "-01");
+                return date.toLocaleString('vi-VN', { month: 'short' });
+            }));
+        } catch (error) {
+            console.error('Error fetching revenue data:', error);
+        }
+    };
+
+    fetchRevenueData();
+}, []);
+
+const data = {
+  labels: labels,
+  datasets: [
       {
-        label: 'Doanh thu (VND)',
-        data: revenueData,
-        backgroundColor: 'rgba(34, 197, 94, 0.7)', 
-        borderColor: 'rgba(34, 197, 94, 1)',
-        borderWidth: 1,
+          label: 'Doanh thu (VND)',
+          data: revenueData,
+          backgroundColor: 'rgba(34, 197, 94, 0.7)',
+          borderColor: 'rgba(34, 197, 94, 1)',
+          borderWidth: 1,
       },
-    ],
-  };
+  ],
+};
 
   const options = {
     responsive: true,

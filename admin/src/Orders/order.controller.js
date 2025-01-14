@@ -16,9 +16,9 @@ const getOrderByEmail = async (req, res) => {
         const { email } = req.params;
         const orders = await Order.find({email})
             .populate({
-                path: 'products.productId',  // Thêm populate cho products.productId
-                model: 'Book',
-                select: 'title coverImage price' // Chọn các trường cần lấy
+                path: 'products.productId',  // Đường dẫn đến trường cần populate
+                model: 'Book',              // Model được tham chiếu đến
+                select: 'title coverImage price' // Chỉ lấy các trường cụ thể
             })
             .sort({ createdAt: -1 }); // Sắp xếp theo thời gian mới nhất
         res.status(200).json(orders);
@@ -32,9 +32,9 @@ const getAllOrders = async (req, res) => {
     try {
         const orders = await Order.find({})
             .populate({
-                path: 'products.productId',  // Thêm populate cho products.productId
-                model: 'Book',
-                select: 'title coverImage price' // Chọn các trường cần lấy
+                path: 'products.productId',  // Đường dẫn đến trường cần populate
+                model: 'Book',              // Model được tham chiếu đến
+                select: 'title coverImage price' // Chỉ lấy các trường cụ thể
             })
             .sort({ createdAt: -1 }); // Sắp xếp theo thời gian mới nhất
         res.status(200).json(orders);

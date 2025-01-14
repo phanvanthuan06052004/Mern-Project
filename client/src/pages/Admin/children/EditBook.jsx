@@ -84,6 +84,9 @@ const EditBook = () => {
     }
   }
 
+  // useEffect hook để cleanup URL preview khi component unmount
+  // Khi component unmount, nếu có previewUrl thì sẽ xóa URL object đã tạo
+  // để tránh memory leak
   useEffect(() => {
     return () => {
       if (previewUrl) {

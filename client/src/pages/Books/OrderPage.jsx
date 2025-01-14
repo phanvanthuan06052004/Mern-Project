@@ -5,14 +5,14 @@ import CircleLoader from "react-spinners/ClipLoader";
 import { getURL } from '../../utils/getURLImg';
 
 const OrderPage = () => {
-    const { currentUser, loading } = useAuth()
+    const { currentUser, loading } = useAuth() //lấy user hiện tại 
     const containerStyle = {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         minHeight: '100vh'
     }
-
+    //lấy đơn hàng của user hiện tại
     const { data: orders = [], isLoading, refetch } = useGetOrderByEmailQuery(currentUser?.email);
 
     useEffect(() => {
@@ -37,16 +37,16 @@ const OrderPage = () => {
                             <div className="border-b pb-4 mb-4">
                                 <div className="flex justify-between items-center mb-2">
                                     <h3 className="text-lg font-semibold text-red-600">
-                                        {order.status}
+                                        {order?.status}
                                     </h3>
                                     <span className="text-gray-500">
-                                        {new Date(order.createdAt).toLocaleDateString('vi-VN')}
+                                        {new Date(order?.createdAt).toLocaleDateString('vi-VN')}
                                     </span>
                                 </div>
                                 <div className="text-sm text-gray-600">
                                     <p>Người nhận: {order.name}</p>
-                                    <p>Địa chỉ: {order.address.addressDetail}, {order.address.ward}, {order.address.district}, {order.address.city}</p>
-                                    <p>Số điện thoại: {order.phone}</p>
+                                    <p>Địa chỉ: {order?.address?.addressDetail}, {order?.address?.ward}, {order?.address?.district}, {order?.address?.city}</p>
+                                    <p>Số điện thoại: {order?.phone}</p>
                                 </div>
                             </div>
 
@@ -55,18 +55,18 @@ const OrderPage = () => {
                                     <div key={idx} className="flex justify-between items-center">
                                         <div className="flex items-center gap-4">
                                             <img 
-                                                src={`${getURL(item.productId.coverImage)}`} 
-                                                alt={item.productId.title} 
+                                                src={`${getURL(item?.productId?.coverImage)}`} 
+                                                alt={item?.productId?.title} 
                                                 className="w-20 h-20 object-cover rounded"
                                             />
                                             <div>
-                                                <h4 className="font-medium">{item.productId.title}</h4>
-                                                <p className="text-gray-500">Số lượng: {item.quantity}</p>
+                                                <h4 className="font-medium">{item?.productId?.title}</h4>
+                                                <p className="text-gray-500">Số lượng: {item?.quantity}</p>
                                             </div>
                                         </div>
                                         <div className="text-right">
                                             <p className="font-medium">
-                                                {Number(item.price).toFixed(3)} VNĐ
+                                                {Number(item?.price).toFixed(3)} VNĐ
                                             </p>
                                         </div>
                                     </div>
@@ -77,7 +77,7 @@ const OrderPage = () => {
                                 <div className="flex justify-between items-center">
                                     <span className="font-semibold">Thành tiền:</span>
                                     <span className="font-bold text-xl text-orange-500">
-                                    {Number(order.totalPrice).toFixed(3)} VNĐ
+                                    {Number(order?.totalPrice).toFixed(3)} VNĐ
                                     </span>
                                 </div>
                             </div>
